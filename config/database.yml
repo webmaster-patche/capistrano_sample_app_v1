@@ -11,32 +11,34 @@
 #
 default: &default
   adapter: mysql2
-  encoding: utf8
+  encoding: utf8mb4
+  charset: utf8mb4
+  collation: utf8mb4_general_ci
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: test
+  username: developer
   password: ff44f2bdd31bc2baed90
-  socket: /tmp/mysql.sock
-  host: localhost
+  # test / development はソケット通信はしない為、コメントアウト
+#  socket: /tmp/mysql.sock
+  # test / development は docker-compose / links / mysqlを使用（コンテナ通信）
+  host: mysql
 
 development:
   <<: *default
+  database: capistrano_sample
   # database: capistrano_sample_app_v1_development
-  database: test_database
-  host: localhost
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  database: capistrano_sample
   # database: capistrano_sample_app_v1_test
-  database: test_database
-  host: localhost
 
 staging:
   <<: *default
-  database: test_database
-  host:     db-sample.gcp
+  database: capistrano_sample
+  host: db-capistrano-sample.gcp
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
 # ever seen by anyone, they now have access to your database.
@@ -58,6 +60,4 @@ staging:
 #
 production:
   <<: *default
-  database: capistrano_sample_app_v1_production
-  username: capistrano_sample_app_v1
   password: <%= ENV['DATABASE_PASSWORD'] %>

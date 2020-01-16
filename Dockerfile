@@ -21,7 +21,9 @@ WORKDIR $APP_HOME
 
 # Copy Gemfile from origin
 ADD Gemfile $APP_HOME/Gemfile
+ADD Gemfile.lock $APP_HOME/Gemfile.lock
 
 RUN bundle _2.1.4_ install --path vendor/bundle
+RUN bundle exec rails db:migrate RAILS_ENV=development
 
 ADD . $APP_HOME

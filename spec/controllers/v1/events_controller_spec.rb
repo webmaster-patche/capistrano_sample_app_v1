@@ -23,10 +23,10 @@ require 'rails_helper'
 # removed from Rails core in Rails 5, but can be added back in via the
 # `rails-controller-testing` gem.
 
-RSpec.describe V1::EventsController, type: :controller do
+RSpec.describe EventsController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
-  # V1::Event. As you add validations to V1::Event, be sure to
+  # Event. As you add validations to Event, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -38,12 +38,12 @@ RSpec.describe V1::EventsController, type: :controller do
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
-  # V1::EventsController. Be sure to keep this updated too.
+  # EventsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
   describe "GET #index" do
     it "returns a success response" do
-      event = V1::Event.create! valid_attributes
+      event = Event.create! valid_attributes
       get :index, params: {}, session: valid_session
       expect(response).to be_successful
     end
@@ -51,7 +51,7 @@ RSpec.describe V1::EventsController, type: :controller do
 
   describe "GET #show" do
     it "returns a success response" do
-      event = V1::Event.create! valid_attributes
+      event = Event.create! valid_attributes
       get :show, params: {id: event.to_param}, session: valid_session
       expect(response).to be_successful
     end
@@ -59,25 +59,25 @@ RSpec.describe V1::EventsController, type: :controller do
 
   describe "POST #create" do
     context "with valid params" do
-      it "creates a new V1::Event" do
+      it "creates a new Event" do
         expect {
-          post :create, params: {api_V1_event: valid_attributes}, session: valid_session
-        }.to change(V1::Event, :count).by(1)
+          post :create, params: {v1_event: valid_attributes}, session: valid_session
+        }.to change(Event, :count).by(1)
       end
 
-      it "renders a JSON response with the new api_V1_event" do
+      it "renders a JSON response with the new v1_event" do
 
-        post :create, params: {api_V1_event: valid_attributes}, session: valid_session
+        post :create, params: {v1_event: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(api_V1_event_url(V1::Event.last))
+        expect(response.location).to eq(v1_event_url(Event.last))
       end
     end
 
     context "with invalid params" do
-      it "renders a JSON response with errors for the new api_V1_event" do
+      it "renders a JSON response with errors for the new v1_event" do
 
-        post :create, params: {api_V1_event: invalid_attributes}, session: valid_session
+        post :create, params: {v1_event: invalid_attributes}, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -90,27 +90,27 @@ RSpec.describe V1::EventsController, type: :controller do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested api_V1_event" do
-        event = V1::Event.create! valid_attributes
-        put :update, params: {id: event.to_param, api_V1_event: new_attributes}, session: valid_session
+      it "updates the requested v1_event" do
+        event = Event.create! valid_attributes
+        put :update, params: {id: event.to_param, v1_event: new_attributes}, session: valid_session
         event.reload
         skip("Add assertions for updated state")
       end
 
-      it "renders a JSON response with the api_V1_event" do
-        event = V1::Event.create! valid_attributes
+      it "renders a JSON response with the v1_event" do
+        event = Event.create! valid_attributes
 
-        put :update, params: {id: event.to_param, api_V1_event: valid_attributes}, session: valid_session
+        put :update, params: {id: event.to_param, v1_event: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
     end
 
     context "with invalid params" do
-      it "renders a JSON response with errors for the api_V1_event" do
-        event = V1::Event.create! valid_attributes
+      it "renders a JSON response with errors for the v1_event" do
+        event = Event.create! valid_attributes
 
-        put :update, params: {id: event.to_param, api_V1_event: invalid_attributes}, session: valid_session
+        put :update, params: {id: event.to_param, v1_event: invalid_attributes}, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -118,11 +118,11 @@ RSpec.describe V1::EventsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested api_V1_event" do
-      event = V1::Event.create! valid_attributes
+    it "destroys the requested v1_event" do
+      event = Event.create! valid_attributes
       expect {
         delete :destroy, params: {id: event.to_param}, session: valid_session
-      }.to change(V1::Event, :count).by(-1)
+      }.to change(Event, :count).by(-1)
     end
   end
 
