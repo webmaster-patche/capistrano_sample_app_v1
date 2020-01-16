@@ -1,0 +1,8 @@
+# logging setting
+# fatal   システムクラッシュ（システムエラー）
+# error   アプリケーションエラー
+# warn    警告
+# info    プログラム通知
+# debug   開発者向けの情報
+logger:
+  formatter: 'proc {|severity, datetime, progname, msg| "severity:[#{severity.rjust(5, " ")}]\tdatetime:#{datetime.strftime("%Y/%m/%d %H:%m:%S")} pid:#{$$}\tmessage:#{msg}\n"}'

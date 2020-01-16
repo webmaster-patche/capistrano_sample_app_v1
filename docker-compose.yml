@@ -1,0 +1,12 @@
+version: '3'
+services:
+  api:
+    tty: true
+    stdin_open: true
+    build: .
+    ports:
+      - "8000:8000"
+    command: /bin/sh -c "rm -f /capistrano_sample_app_v1/tmp/pids/server.pid && bundle exec rails s -p 8000 -b '0.0.0.0'"
+    volumes:
+      # ホストのカレントディレクトリをコンテナの/capistrano_sample_app_v1にマウント
+      - .:/capistrano_sample_app_v1

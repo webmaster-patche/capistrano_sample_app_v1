@@ -1,0 +1,45 @@
+version: 2.1
+orbs:
+  common:
+    jobs:
+      development_build:
+        parameters:
+          greeting_name:
+            type: string
+            default: olleh
+        executor: development_executor
+        steps:
+          - checkout
+          - bundle_install
+              name: <<parameters.greeting_name>>
+          - development_command:
+              name: <<parameters.greeting_name>>
+    commands:
+      bundle_install:
+        steps:
+          - run: bundle install --path vendor/bundle
+      development_command:
+        parameters:
+          rubocop_option:
+            type: string
+            default: ""
+          rspec_option:
+            type: string
+            default: ""
+        steps:
+          - run: bundle exec rubocop <<parameters.rubocop_option>>"
+          - run: bundle exec rspec <<parameters.rspec_option>>"
+    executors:
+      development_executor:
+        parameters:
+          ruby_version:
+            type: string
+            default: "2.6.5-stretch-node-browsers"
+        docker:
+          - image: circleci/ruby:<<parameters.ruby_version>>
+
+workflows:
+  build-development-push:
+    jobs:
+      - inline_example/development_build:
+          name: build
