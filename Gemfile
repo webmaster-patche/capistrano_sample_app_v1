@@ -67,7 +67,7 @@ group :development, :test do
   # Code coverage for Ruby 1.9+ with a powerful configuration library and automatic merging of coverage across test suites
   gem 'simplecov'
   # Use Puma as the app server
-  gem 'puma', '~> 3.11'
+  gem 'puma', '~> 4.3'
   # pry
   gem 'pry'
   gem 'pry-byebug'
